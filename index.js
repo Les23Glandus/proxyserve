@@ -3,6 +3,7 @@ const path = require('path');
 const compression = require('compression');
 const helmet = require('helmet');
 const { createProxyMiddleware } = require('http-proxy-middleware');
+require('dotenv').config();
 
 const PORT = 80;
 //const HOST = "localhost";
