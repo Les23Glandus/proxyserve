@@ -28,7 +28,7 @@ app.use(/^\/(api|uploads)\/.+/, createProxyMiddleware({
 }));
 
 const BUILD_PATH = "../www/build";
-app.use(require('prerender-node'));
+app.use(require('prerender-node').set('prerenderToken',process.env.prerenderToken)); //See https://prerender.io/
 app.use(express.static(path.join(__dirname, BUILD_PATH)));
 app.get(/.+/, (req,res) => {
    res.sendFile(path.join(__dirname, BUILD_PATH, 'index.html'))
