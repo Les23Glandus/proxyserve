@@ -9,11 +9,6 @@ require('dotenv').config();
 
 const PORT = process.env.PORT;
 
-/**
- * Init Prerender server
- */
-require('./src/prerender');
-
 
 /**
  * Init express
