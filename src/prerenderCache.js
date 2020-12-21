@@ -7,9 +7,10 @@ module.exports = {
 		this.cache = cacheManager.caching({
             //store: 'memory', max: process.env.CACHE_MAXSIZE || 100, ttl: process.env.CACHE_TTL || 60/*seconds*/
             store: fsStore,
+			//refreshThreshold:10,
             options: {
                 reviveBuffers: true,
-                binaryAsStream: true,
+				binaryAsStream: true,
                 ttl: process.env.PRERENDER_TTL || 60 * 60 /* seconds */,
                 maxsize: ( process.env.PRERENDER_MAXSIZE || 1000) * 1024 * 1024 /* max size in bytes on disk */,
                 path: process.env.PRERENDER_CACHE_DIR,

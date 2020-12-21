@@ -51,15 +51,6 @@ app.use(helmet({
  */
 /*
 */
-app.use(require('prerender-node').set('beforeRender', function(req, done) {
-   // do whatever you need to do
-   console.log("Before");
-	done();
-}));
-app.use(require('prerender-node').set('afterRender', function(err, req, prerender_res) {
-	// do whatever you need to do
-   console.log("After");
-}));
 prerender.set('prerenderToken',process.env.PRERENDER_TOKEN)
          .set('prerenderServiceUrl', 'http://localhost:'+process.env.PRERENDER_PORT+'/');
 app.use(prerender); //See https://prerender.io/
