@@ -74,7 +74,7 @@ function check_needCacheRefresh( req ) {
     }
 
     const cache_multiplier = parseInt( process.env.CACHE_X );
-    let cacheAsk = parseInt( req.header("My-Cache") ) * cache_multiplier * (60 * 1000);
+    let cacheAsk = parseInt( req.header("my-cache") ) * cache_multiplier * (60 * 1000);
     if( cacheAsk <= 0 ) return null;
 
     let file = getFileName(req);
@@ -98,7 +98,7 @@ function check_needCacheRefresh( req ) {
  */
 function getFileName(req) {
 
-    let xQuery = req.header("My-Cache-Query");
+    let xQuery = req.header("my-cache-query");
     let reg = /api\/graphql/i;
     let reg2 = /api\/.+/i;
     if( reg.test( req.originalUrl ) ) {
