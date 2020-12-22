@@ -31,13 +31,20 @@ app.use(helmet({
 /**
  * Proxy to strapi
  */
- app.use(/^\/(api|uploads)\/.+/, createProxyMiddleware({
-    target: "http://localhost:1337/",
-    changeOrigin: true,
-    selfHandleResponse: true,
-    onProxyRes:myCache.onProxyRes,
-    pathRewrite: {
-       '^/api': '',
+ app.use(/^\/(api)\/.+/, createProxyMiddleware({
+   target: "http://localhost:1337/",
+   changeOrigin: true,
+   selfHandleResponse: true,
+   onProxyRes:myCache.onProxyRes,
+   pathRewrite: {
+      '^/api': '',
+     },
+}));   
+app.use(/^\/uploads\/.+/, createProxyMiddleware({
+   target: "http://localhost:1337/",
+   changeOrigin: true,
+   pathRewrite: {
+      '^/api': '',
       },
    }));   
 
