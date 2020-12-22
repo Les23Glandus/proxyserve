@@ -23,7 +23,7 @@ module.exports.use = function (req, res, next) {
             if( file && fs.existsSync(file) ) {
                 let mtime = fs.statSync(file).mtime;
                 let data = JSON.parse( fs.readFileSync(file, {encoding:"utf-8"} ) );
-                res.set('x-myCache', new Date( mtime ).getTime() );
+                res.set('X-My-Cache', new Date( mtime ).getTime() );
                 res.status(202).send( data );
                 res.end();
             } else {
@@ -74,7 +74,7 @@ function check_needCacheRefresh( req ) {
     }
 
     const cache_multiplier = parseInt( process.env.CACHE_X );
-    let cacheAsk = parseInt( req.header("x-cache") ) * cache_multiplier * (60 * 1000);
+    let cacheAsk = parseInt( req.header("My-Cache") ) * cache_multiplier * (60 * 1000);
     if( cacheAsk <= 0 ) return null;
 
     let file = getFileName(req);
@@ -98,7 +98,7 @@ function check_needCacheRefresh( req ) {
  */
 function getFileName(req) {
 
-    let xQuery = req.header("x-query");
+    let xQuery = req.header("My-Cache-Query");
     let reg = /api\/graphql/i;
     let reg2 = /api\/.+/i;
     if( reg.test( req.originalUrl ) ) {
