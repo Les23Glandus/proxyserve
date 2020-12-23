@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const myCache = require("./src/myCache");
 const prerender = require('prerender-node');
+const preRenderRegenCache = require("./src/prerender/regenCache");
 require('dotenv').config();
 
 const PORT = process.env.PORT;
@@ -27,7 +28,8 @@ app.use(helmet({
  */
  app.use("/clear-cache-23", myCache.clearCache);
  app.use(myCache.routes, myCache.use);
- 
+ app.use("/23/prerender", preRenderRegenCache.displayList );
+ app.use("/23/runUpdate", preRenderRegenCache.runUpdate );
 /**
  * Proxy to strapi
  */
