@@ -29,7 +29,7 @@ app.use(helmet({
  app.use("/clear-cache-23", myCache.clearCache);
  app.use(myCache.routes, myCache.use);
  app.use("/23/prerender", preRenderRegenCache.displayList );
- app.use("/23/runUpdate", preRenderRegenCache.runUpdate );
+ //app.use("/23/runUpdate", preRenderRegenCache.runUpdate );
 /**
  * Proxy to strapi
  */

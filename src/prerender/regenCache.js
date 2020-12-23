@@ -13,7 +13,8 @@ regenCache.runUpdate = (req, res, next) => {
     regenCache.listUrls().then( list => {
         let started = list.length;
         if( started === 0 ) {
-            res.send("Nothing to do...").end();
+            if( res ) res.send("Nothing to do...").end();
+            else console.log("Nothing to do...");
         } else {
             let errors = [];
             getNextFile( list, errors, res, startOn );
@@ -26,12 +27,13 @@ function getNextFile( list , errors, res, startOn ) {
 
     let onEnded = () => {
         if( list.length <= 0 ) {
-            res.send("All task done. <h3>Errors :</h3><pre>"+JSON.stringify(errors,null,4)+"</pre>"  ).end();
+            if( res ) res.send("All task done. <h3>Errors :</h3><pre>"+JSON.stringify(errors,null,4)+"</pre>"  ).end();
+            else console.log("All task done", "errors:", errors);
         } else {
             let timespent = new Date().getTime() - startOn;
 
             if( timespent > parseInt(process.env.PRERENDER_REFRESH_TIMEOUT) * 60 * 1000 ) {
-                res.send("Timeout").end();
+                if( res ) res.send("Timeout").end();
                 throw new Error("Timeout !");
             } else {
                 getNextFile( list, errors, res, startOn);
@@ -42,10 +44,10 @@ function getNextFile( list , errors, res, startOn ) {
 
     let n = list.pop();
 
-    //if update more than 2 hours
+    //if update more than 2 hours (to prevent loop)
     let mtime = new Date( fs.statSync(n.file).mtime ).getTime();
     let ageUpdated = new Date().getTime() - mtime;
-    if( ageUpdated > 0 * 2 * 60 * 60 * 1000 ) {
+    if( ageUpdated > 2 * 60 * 60 * 1000 ) {
         regenCache.updateUrl( n.url, n.file ).then( onEnded ).catch( () => {
             errors.push( n.url );
             onEnded();
