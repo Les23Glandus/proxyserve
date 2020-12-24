@@ -20,6 +20,8 @@ regenCache.runUpdate = (req, res, next) => {
             getNextFile( list, errors, res, startOn );
         }
         
+    }).catch( e => {
+        console.log(e);
     });
 };
 
@@ -107,7 +109,7 @@ regenCache.listUrls = () => {
     return new Promise( (resolve,reject) => {
         
         if (!fs.existsSync(process.env.PRERENDER_CACHE_DIR)){
-            reject("Dir not exist", process.env.PRERENDER_CACHE_DIR);
+            reject("Dir not exist" + process.env.PRERENDER_CACHE_DIR);
         } else {
             const reg = /\.dat$/
             fs.readdir(process.env.PRERENDER_CACHE_DIR, (err, files) => {
