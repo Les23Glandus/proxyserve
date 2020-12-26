@@ -26,9 +26,9 @@ app.use(helmet({
 /**
  * Cache Strapi answers
  */
- app.use("/clear-cache-23", myCache.clearCache);
+ app.use( process.env.HIDE_PATH + "/clear-cache", myCache.clearCache);
  app.use(myCache.routes, myCache.use);
- app.use("/23/prerender", preRenderRegenCache.displayList );
+ app.use( process.env.HIDE_PATH +"/prerender", preRenderRegenCache.displayList );
  //app.use("/23/runUpdate", preRenderRegenCache.runUpdate );
 /**
  * Proxy to strapi
