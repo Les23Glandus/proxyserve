@@ -82,7 +82,7 @@ regenCache.displayList = (req, res, next) => {
     regenCache.listUrls().then( list => {
 
         let ans = `
-        <h1>Liste des pages en cache pour le SEO</h1>
+        <h1>Liste des pages en cache pour le SEO (x${list.length})</h1>
         <table cellpadding=10 cellspacing=5 border=1>
             <tr>
                 <th style='min-width:300px'>Url</th>
