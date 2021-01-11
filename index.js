@@ -4,6 +4,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const myCache = require("./src/myCache");
+const sitemap = require("./src/sitemap");
 const prerender = require('prerender-node');
 const preRenderRegenCache = require("./src/prerender/regenCache");
 require('dotenv').config();
@@ -30,6 +31,10 @@ app.use(helmet({
  app.use(myCache.routes, myCache.use);
  app.use( process.env.HIDE_PATH +"/prerender", preRenderRegenCache.displayList );
  //app.use("/23/runUpdate", preRenderRegenCache.runUpdate );
+ /**
+  * Sitemap
+  */
+app.use("/sitemap", sitemap);
 /**
  * Proxy to strapi
  */
